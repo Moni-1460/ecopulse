@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoPulse — Sustainable Living Social Media Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 40 40" width="30" height="30" aria-hidden="true">
+      <path d="M20 4C11 6 6 14 6 22c0 7 5 12 11 13-1-6 1-11 5-15 3-3 8-5 12-5-2 10-9 17-19 18-1 0-2 0-3-1C4 30 2 21 6 13 10 6 15 3 20 4Z" fill="#8FA876"/>
+    </svg>
+    <div>
+      <h1>EcoPulse</h1>
+      <p class="tagline">Sustainable living, one post at a time.</p>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="generate" role="tab" aria-selected="true">Generate</button>
+    <button class="tab-btn" data-tab="history" role="tab" aria-selected="false">History</button>
+    <button class="tab-btn" data-tab="analytics" role="tab" aria-selected="false">Analytics</button>
+  </nav>
+</header>
+
+<main class="layout">
+
+  <!-- SIDEBAR: generation controls -->
+  <aside class="sidebar">
+    <p class="eyebrow">01 / plant the idea</p>
+    <form id="generate-form">
+      <label for="topic">Topic angle</label>
+      <textarea id="topic" name="topic" rows="3" maxlength="255"
+        placeholder="e.g. composting for apartment dwellers" required></textarea>
+
+      <label>Platform</label>
+      <div class="pill-group" id="platform-group" data-value="instagram">
+        <button type="button" class="pill active" data-value="instagram">Instagram</button>
+        <button type="button" class="pill" data-value="twitter">Twitter/X</button>
+        <button type="button" class="pill" data-value="linkedin">LinkedIn</button>
+        <button type="button" class="pill" data-value="facebook">Facebook</button>
+      </div>
+
+      <label>Tone</label>
+      <div class="pill-group" id="tone-group" data-value="inspirational">
+        <button type="button" class="pill active" data-value="inspirational">Inspirational</button>
+        <button type="button" class="pill" data-value="informative">Informative</button>
+        <button type="button" class="pill" data-value="humorous">Humorous</button>
+        <button type="button" class="pill" data-value="professional">Professional</button>
+      </div>
+
+      <label for="keywords">Keywords <span class="optional">(optional)</span></label>
+      <input type="text" id="keywords" name="keywords" maxlength="300"
+        placeholder="compost, apartment, balcony bin">
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="use-examples" checked>
+        Use my top-rated past posts as style examples
+      </label>
+
+      <button type="submit" class="btn-primary" id="generate-btn">
+        <span class="btn-label">Generate post</span>
+      </button>
+      <p class="error-msg" id="form-error" hidden></p>
+    </form>
+  </aside>
+
+  <!-- MAIN PANEL -->
+  <section class="panel">
+
+    <div class="tab-panel" id="tab-generate">
+      <p class="eyebrow">02 / harvest the result</p>
+      <div id="result-empty" class="empty-state">
+        <p>Nothing growing here yet. Fill in a topic on the left and press
+          <strong>Generate post</strong> to get your first draft.</p>
+      </div>
+      <div id="result-card" class="post-card result-card" hidden></div>
+    </div>
+
+    <div class="tab-panel" id="tab-history" hidden>
+      <p class="eyebrow">field journal / all posts</p>
+      <div class="history-filters">
+        <select id="filter-platform">
+          <option value="">All platforms</option>
+          <option value="instagram">Instagram</option>
+          <option value="twitter">Twitter/X</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="facebook">Facebook</option>
+        </select>
+        <select id="filter-tone">
+          <option value="">All tones</option>
+          <option value="inspirational">Inspirational</option>
+          <option value="informative">Informative</option>
+          <option value="humorous">Humorous</option>
+          <option value="professional">Professional</option>
+        </select>
+        <button class="btn-ghost" id="refresh-history">Refresh</button>
+      </div>
+      <div id="history-list" class="history-list"></div>
+      <p class="empty-state" id="history-empty" hidden>No posts match these filters yet.</p>
+    </div>
+
+    <div class="tab-panel" id="tab-analytics" hidden>
+      <p class="eyebrow">03 / growth rings</p>
+      <div class="analytics-grid">
+        <div class="rings-card">
+          <svg id="rings-svg" viewBox="0 0 220 220" width="220" height="220" aria-label="Platform distribution rings"></svg>
+          <ul id="rings-legend" class="rings-legend"></ul>
+        </div>
+        <div class="stats-card">
+          <div class="stat">
+            <span class="stat-number" id="stat-total">0</span>
+            <span class="stat-label">posts generated</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="stat-up">0</span>
+            <span class="stat-label">upvoted 👍</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number" id="stat-down">0</span>
+            <span class="stat-label">downvoted 👎</span>
+          </div>
+          <div class="tone-bars" id="tone-bars"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

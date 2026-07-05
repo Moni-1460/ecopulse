@@ -1,0 +1,15 @@
+services:
+  ecopulse:
+    build: .
+    image: ecopulse-social-agent:latest
+    container_name: ecopulse
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ecopulse-data:/app/backend/data
+    restart: unless-stopped
+
+volumes:
+  ecopulse-data:
