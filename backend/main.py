@@ -146,3 +146,4 @@ def analytics(db: Session = Depends(get_db)):
 FRONTEND_DIR = os.path.join(os.path.dirname(__file__), "..", "frontend")
 if os.path.isdir(FRONTEND_DIR):
     app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+"# This change triggers Render rebuild" 
